@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Vue Axios</title>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+      <p>{{ message }}</p>
+    </div>
+
+    <script>
+        var vm = new Vue({
+          el: '#app',
+          data: {
+            message: "initial"
+          },
+          methods: {
+          get_ajax: function() {
+               axios.get('ajax')
+                  .then(function(response) {
+                     console.log("in axios")
+                     console.log("response: " + response.data)
+                     vm.message = response.data
+                  }).catch(function(error) {
+                     console.log(error.response.data)
+                  });
+
+            }
+
+
+          },
+          beforeMount() {
+            this.get_ajax()
+
+          },
+
+          computed: {
+
+          },
+          watch: {
+
+          }
+        })
+
+    </script>
+
+</body>
+</html>

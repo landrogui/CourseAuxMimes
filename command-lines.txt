@@ -1,0 +1,27 @@
+# Database Table Architecture
+    Preferences
+    List of Languages
+        Language Table Name, Language Name, Alphabet (Pipe Separated)
+    Language Tables
+        Word Name, Difficulty (1 to 5), Indice
+    Historical Games
+        Language Name, List of Words (Pipe Separated)
+
+# Command Line Functions
+    regenerate database
+    add language <Language Name>,<Language Table Name>, <Alphabet>
+    add word <Language Name>, <Word1|Word2|Word3|...>
+    create game <Language>,<Average Difficulty>
+
+# Sample Ajax with basic javascript
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "ajax_info.txt", true);
+  xhttp.send();
+}
