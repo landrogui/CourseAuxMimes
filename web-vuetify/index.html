@@ -19,10 +19,11 @@
       <v-container fluid grid-list-xl>
         <v-layout row wrap>
           <v-flex xs12>
-            <v-tabs grow icons centered>
-            <v-toolbar app color="cyan darken-3" dark>
+            <v-tabs grow icons centered extended :scrollable="false">
+              <v-toolbar app color="cyan darken-3" dark>
                 <v-toolbar-side-icon ></v-toolbar-side-icon>
-                <v-toolbar-title><h1>{{ toolbar_title }}</h1></v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-toolbar-title><v-text>{{ toolbar_title }}<v-text></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-menu bottom left>
                   <v-btn icon slot="activator" dark color="orange">
@@ -107,24 +108,56 @@
             </v-card>
           </v-flex>
           <v-flex xs12 v-if="whichPageToDisplay === 'table_game'">
+            <div>
+            <v-alert color="warning" icon="priority_high" value="true" v-if="isGameInProgress == false">
+              Il n'y pas de partie active. Vous pouvez retourner à la page précédente pour consulter les mots ou créez une partie immédiatement:
+              <v-btn round block class="primary">
+                  <v-icon>star</v-icon>
+                  <v-spacer></v-spacer>
+                  Créez une Partie
+                  <v-spacer></v-spacer>
+                  <v-icon>star</v-icon>
+              </v-btn>
+            </v-alert>
+            </div>
             <v-card>
-            <template>
-            <v-data-table
-              v-bind:headers="table_game_header" :items="table_game_items"
-              hide-actions
-              class="elevation-1"
-              dark
-            >
-            <template slot="items" slot-scope="props">
-              <td class="text-xs-left">{{ props.item.line }}</td>
-              <td class="text-xs-left">{{ props.item.word }}</td>
-              <td class="text-xs-left">{{ props.item.difficulty }}</td>
-              <td class="text-xs-left">{{ props.item.hint }}</td>
+              <template>
+              <v-data-table
+                v-bind:headers="table_game_header" :items="table_game_items"
+                hide-actions
+                class="elevation-1"
+                dark
+                v-if="isGameInProgress == true"
+              >
+              <template slot="items" slot-scope="props">
+                <td class="text-xs-left">{{ props.item.line }}</td>
+                <td class="text-xs-left">{{ props.item.word }}</td>
+                <td class="text-xs-left">{{ props.item.difficulty }}</td>
+                <td class="text-xs-left">{{ props.item.hint }}</td>
+              </template>
+              </v-data-table>
             </template>
-            </v-data-table>
-          </template>
           </v-card>
           </v-flex>
+          <v-dialog v-model="dialog" max-width="250">
+              <v-card>
+									<v-card-title class="headline">Je n'ai pas trouvé de partie!</v-card-title>
+									<v-card-text>En cliquant sur
+                    <v-btn small round class="primary">
+                      <v-icon>star</v-icon>
+                      Créez une Partie
+                      <v-icon>star</v-icon>
+                    </v-btn>
+                    elle deviendra accessible.</v-card-text>
+									<v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn centered color="green darken-1" flat="flat" @click.native="showAlertNoGameInProgress = false"
+                    >OK
+                    </v-btn>
+                    <v-spacer></v-spacer>
+									</v-card-actions>
+								</v-card>
+          </v-dialog>
         </v-layout>
       </v-container>
 
@@ -146,6 +179,8 @@
         label_words_page_btn: "Liste de Mots",
         label_game_page_btn: "Partie en Cours",
         whichPageToDisplay: "table_words",
+        isGameInProgress: false,
+        dialog: false,
         language_list: [
             { text: 'Français', value: 'Français' },
             { text: 'English', value: 'English' }
