@@ -25,7 +25,7 @@
                 <v-toolbar-title><h1>{{ toolbar_title }}</h1></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-menu bottom left>
-                  <v-btn icon slot="activator" dark>
+                  <v-btn icon slot="activator" dark color="orange">
                     {{ active_language }}
                   </v-btn>
                   <v-list>
@@ -146,8 +146,6 @@
         label_words_page_btn: "Liste de Mots",
         label_game_page_btn: "Partie en Cours",
         whichPageToDisplay: "table_words",
-        language_default: 1,
-        toggle_exclusive: 0,
         language_list: [
             { text: 'Français', value: 'Français' },
             { text: 'English', value: 'English' }
