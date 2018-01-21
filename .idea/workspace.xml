@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6971fbb9-04ee-4de4-beb4-496758673349" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/web-vuetify/index.html" afterPath="$PROJECT_DIR$/web-vuetify/index.html" />
-      <change beforePath="$PROJECT_DIR$/web/bottle-routes.py" afterPath="$PROJECT_DIR$/web/bottle-routes.py" />
+      <change beforePath="$PROJECT_DIR$/MaterialDesign-Webfont-master/.github/ISSUE_TEMPLATE.md" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/css/materialdesignicons.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/css/materialdesignicons.css.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/css/materialdesignicons.min.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/css/materialdesignicons.min.css.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/fonts/materialdesignicons-webfont.eot" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/fonts/materialdesignicons-webfont.svg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/fonts/materialdesignicons-webfont.ttf" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/fonts/materialdesignicons-webfont.woff" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/fonts/materialdesignicons-webfont.woff2" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -476,7 +484,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/web-vuetify/index.html</url>
-          <line>217</line>
+          <line>224</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
