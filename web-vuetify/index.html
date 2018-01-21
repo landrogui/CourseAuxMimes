@@ -24,11 +24,19 @@
                 <v-toolbar-side-icon ></v-toolbar-side-icon>
                 <v-toolbar-title><h1>{{ toolbar_title }}</h1></v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-layout>
-                  <v-flex xs8>
-                    <v-select v-bind:items="language_list" v-model="language_default" item-text="text" item-value="value" single-line></v-select>
-                  </v-flex>
-                </v-layout>     
+                <v-menu bottom left>
+                  <v-btn icon slot="activator" dark>
+                    <v-icon>info</v-icon>
+                  </v-btn>
+                  <v-list>
+                    <v-list-tile @click="">
+                      <v-list-tile-title>Francais</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile @click="">
+                      <v-list-tile-title>English</v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
               </v-toolbar>
               <v-tabs-bar color="cyan" dark>
                 <v-tabs-slider color="brown lighten-1"></v-tabs-slider>

@@ -18,6 +18,15 @@ def main_html():
 def vue_test():
     return static_file('index.html', root='web-vuetify/')
 
+@route('/css/<filename:path>')
+def send_css(filename):
+    print(filename)
+    return static_file(filename, root='/css')
+
+@route('/fonts/<filename:path>')
+def send_fonts(filename):
+    return static_file(filename, root='/fonts')
+
 @route('/get-word-list')
 def ajax_hello():
     return main.getList()
