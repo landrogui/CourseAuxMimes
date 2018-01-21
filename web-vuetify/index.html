@@ -27,7 +27,7 @@
                 <v-spacer></v-spacer>
                 <v-menu bottom left>
                   <v-btn icon slot="activator" dark color="orange">
-                    {{ active_language }}
+                    {{ active_language_abbr }}
                   </v-btn>
                   <v-list>
                     <v-list-tile @click="">
@@ -55,7 +55,7 @@
         </v-layout>
         <v-layout>
           <v-flex xs12 v-if="whichPageToDisplay === 'table_words'">
-            <v-btn block large round class="primary" ><v-icon>star</v-icon><v-spacer></v-spacer>Creer une Partie
+            <v-btn block large round class="primary" ><v-icon>star</v-icon><v-spacer></v-spacer> Créez une Partie
               <v-spacer></v-spacer>
               <v-icon>star</v-icon>
             </v-btn>
@@ -174,7 +174,8 @@
     var vm = new Vue({
       el: '#app',
       data: {
-        active_language: "FR",
+        active_language: "Francais",
+        active_language_abbr: "FR",
         toolbar_title: "La Course des Mimes !!!",
         label_words_page_btn: "Liste de Mots",
         label_game_page_btn: "Partie en Cours",
