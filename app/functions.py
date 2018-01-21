@@ -54,7 +54,7 @@ def convertSQLtoJSON(listSQL, listOfKeys):
             counter_j_items += 1
 
         objJSON.append(dictItems.copy())
-        print(objJSON)
+        # print(objJSON)
 
     return(json.dumps(objJSON))
 

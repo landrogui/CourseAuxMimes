@@ -10,7 +10,7 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
   <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css"></link>
   <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
-  <link rel="icon" type="image/png" href="FLAG-200x200.png" sizes="200x200">
+  <link rel="icon" type="image/png" href="img/FLAG-200x200.png" sizes="200x200">
 
 </head>
 <body>
@@ -26,7 +26,7 @@
                 <v-spacer></v-spacer>
                 <v-menu bottom left>
                   <v-btn icon slot="activator" dark>
-                    <v-icon>info</v-icon>
+                    {{ active_language }}
                   </v-btn>
                   <v-list>
                     <v-list-tile @click="">
@@ -41,11 +41,11 @@
               <v-tabs-bar color="cyan" dark>
                 <v-tabs-slider color="brown lighten-1"></v-tabs-slider>
                 <v-tabs-item href="#tab-1" v-on:click="setPageWords">
-                  <v-icon>info</v-icon>
+                  <v-icon>mdi-dictionary</v-icon>
                   <h3>{{ label_words_page_btn }}</h3>
                 </v-tabs-item>
                 <v-tabs-item href="#tab-2" v-on:click="setPageGame">
-                  <v-icon>star</v-icon>
+                  <v-icon>mdi-basketball</v-icon>
                   <h3>{{ label_game_page_btn }}</h3>
                 </v-tabs-item>
               </v-tabs-bar>
@@ -97,7 +97,7 @@
                   </td>
                   <td class="text-xs-center">
                     <v-tooltip top>
-                      <v-btn icon slot="activator"><v-icon large>info</v-icon></v-btn>
+                      <v-btn icon slot="activator"><v-icon large>mdi-comment-question-outline</v-icon></v-btn>
                       <span><div><h2>{{ props.item.hint }}</h2></div></span>
                     </v-tooltip>
                   </td>
@@ -141,12 +141,7 @@
     var vm = new Vue({
       el: '#app',
       data: {
-        clipped: false,
-        drawer: true,
-        fixed: false,
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
+        active_language: "FR",
         toolbar_title: "La Course des Mimes !!!",
         label_words_page_btn: "Liste de Mots",
         label_game_page_btn: "Partie en Cours",

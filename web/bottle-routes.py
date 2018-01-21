@@ -20,12 +20,16 @@ def vue_test():
 
 @route('/css/<filename:path>')
 def send_css(filename):
-    print(filename)
-    return static_file(filename, root='/css')
+    print("IN ROUTE /css: " + filename)
+    return static_file(filename, root='css/')
 
 @route('/fonts/<filename:path>')
 def send_fonts(filename):
-    return static_file(filename, root='/fonts')
+    return static_file(filename, root='fonts/')
+
+@route('/img/<filename:path>')
+def send_img(filename):
+    return static_file(filename, root='img/')
 
 @route('/get-word-list')
 def ajax_hello():
@@ -35,4 +39,4 @@ def ajax_hello():
 def hello():
     return "Hello World!"
 
-run(host='localhost', port=8080, debug=True)
+run(host='192.168.0.107', port=8080, debug=True)
