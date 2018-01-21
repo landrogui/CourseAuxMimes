@@ -1,9 +1,11 @@
-import main
 import os
+from app.main import *
 from bottle import route, run
 from bottle import static_file
 
 # This is to set the root directory of the web server
+
+
 os.chdir("C:/DEV/GitHub/GitRepo/CourseAuxMimes")
 
 # print(str(os.listdir()))
@@ -20,7 +22,6 @@ def vue_test():
 
 @route('/css/<filename:path>')
 def send_css(filename):
-    print("IN ROUTE /css: " + filename)
     return static_file(filename, root='css/')
 
 @route('/fonts/<filename:path>')
@@ -33,7 +34,7 @@ def send_img(filename):
 
 @route('/get-word-list')
 def ajax_hello():
-    return main.getList()
+    return getListWords("Francais")
 
 @route('/hello')
 def hello():

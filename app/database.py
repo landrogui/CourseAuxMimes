@@ -63,7 +63,6 @@ class SQLiteDatabase:
         strListOfFields = strListOfFields[:len(strListOfFields)-1]
 
         strSQLCommand = "CREATE TABLE " + strTableName + " (" + strListOfFields + ")"
-        print(strSQLCommand)
 
         self.executeSQLCommand("push", strSQLCommand)
 

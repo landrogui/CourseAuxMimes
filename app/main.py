@@ -2,15 +2,15 @@ from app.database import *
 from functions import *
 import os
 
-def getList():
+def getListWords(strLanguage):
     AppDatabase = SQLiteDatabase()
-    list = AppDatabase.getListOfWords("Francais")
-    print(list)
-    print("")
+    list = AppDatabase.getListOfWords(strLanguage)
 
     list_keys = ["word", "difficulty", "hint"]
-    result = convertSQLtoJSON(list, list_keys)
+    result = convertSQLtoListDict(list, list_keys)
+    result = sortListofDict(result, 'word')
     print(result)
+    result = json.dumps(result)
     return result
 
 print("Current Directory: " + os.curdir)
