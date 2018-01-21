@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Vuetify Guillaume</title>
+  <title>Vuetify Jeux Guillaume</title>
 
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
   <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css"></link>
@@ -68,9 +68,12 @@
                   class="elevation-1"
                   dark
                 >
+                <template slot="headerCell" slot-scope="props">
+                        <h1 class="text-xs-center">{{ props.header.text }}</h1>
+                </template>
                 <template slot="items" slot-scope="props">
-                  <td class="text-xs-left">{{ props.item.word }}</td>
-                  <td class="text-xs-left">
+                  <td class="text-xs-center"><h2>{{ props.item.word }}</h2></td>
+                  <td class="text-xs-center">
                     <v-progress-circular
                       v-bind:value="props.item.difficulty * 20"
                       :size="50"
@@ -84,7 +87,7 @@
                   <td class="text-xs-left">
                     <v-tooltip top>
                       <v-btn icon slot="activator"><v-icon large>info</v-icon></v-btn>
-                      <span>{{ props.item.hint }}</span>
+                      <span><div><h2>{{ props.item.hint }}</h2></div></span>
                     </v-tooltip>
                   </td>
                 </template>
@@ -133,7 +136,7 @@
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: "Guillaume's App",
+        title: "La course aux mimes !!!",
         label_words_page_btn: "--------- Liste de Mots ---------",
         label_game_page_btn: "---------- Partie en Cours ----------",
         whichPageToDisplay: "table_words",
