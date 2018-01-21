@@ -81,15 +81,14 @@
                         {{ props.item.difficulty }}
                     </v-progress-circular>
                   </td>
-                  <td class="text-xs-left"><v-icon large>info</v-icon>{{ props.item.hint }}</td>
+                  <td class="text-xs-left">
+                    <v-tooltip top>
+                      <v-btn icon slot="activator"><v-icon large>info</v-icon></v-btn>
+                      <span>{{ props.item.hint }}</span>
+                    </v-tooltip>
+                  </td>
                 </template>
-                </v-data-table>
-                <v-bottom-nav absolute color="transparent">
-                    <v-btn flat color="teal" value="recent">
-                      <span>Recent</span>
-                      <v-icon>history</v-icon>
-                    </v-btn>
-                </v-bottom-nav>                  
+                </v-data-table>                 
               </template>
             </v-card>
           </v-flex>

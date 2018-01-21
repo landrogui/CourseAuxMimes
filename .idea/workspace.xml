@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6971fbb9-04ee-4de4-beb4-496758673349" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/web-vuetify/index.html" afterPath="$PROJECT_DIR$/web-vuetify/index.html" />
-      <change beforePath="$PROJECT_DIR$/web/bottle-routes.py" afterPath="$PROJECT_DIR$/web/bottle-routes.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -476,7 +475,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/web-vuetify/index.html</url>
-          <line>193</line>
+          <line>217</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
