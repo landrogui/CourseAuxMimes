@@ -9,6 +9,7 @@
 
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
   <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css"></link>
+  <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
   <link rel="icon" type="image/png" href="FLAG-200x200.png" sizes="200x200">
 
 </head>
@@ -50,7 +51,7 @@
         </v-layout>
         <v-layout>
           <v-flex xs12 v-if="whichPageToDisplay === 'table_words'">
-            <v-card>
+            <v-card dark>
               <v-card-title>
                   <v-text-field
                     append-icon="search"
@@ -66,16 +67,21 @@
                   hide-actions
                   class="elevation-1"
                   dark
-                  :loading="loading"
                 >
                 <template slot="items" slot-scope="props">
                   <td class="text-xs-left">{{ props.item.word }}</td>
                   <td class="text-xs-left">
-                    <v-progress-circular v-bind:value="props.item.difficulty * 20" :size="50" :width="5" :rotate="360" color=pink>
+                    <v-progress-circular
+                      v-bind:value="props.item.difficulty * 20"
+                      :size="50"
+                      :width="5"
+                      :rotate="360"
+                      :color="getColorForDifficuty(props.item.difficulty)"
+                      >
                         {{ props.item.difficulty }}
                     </v-progress-circular>
                   </td>
-                  <td class="text-xs-left">{{ props.item.hint }}</td>
+                  <td class="text-xs-left"><v-icon large>info</v-icon>{{ props.item.hint }}</td>
                 </template>
                 </v-data-table>
                 <v-bottom-nav absolute color="transparent">
@@ -169,7 +175,29 @@
           },
           setPageGame: function() {
             this.whichPageToDisplay = "table_game"
-          }
+          },
+          getColorForDifficuty: function (valDifficulty) {
+            switch(valDifficulty) {
+              case 1:
+                return "green lighten-3"
+                break
+              case 2:
+                return "green darken-1"
+                break
+              case 3:
+                return "amber lighten-3"
+                break
+              case 4:
+                return "amber darken-4"
+                break  
+              case 5:
+                return "red darken-1"
+                break                
+            }
+          },
+      },
+      computed: {
+
       },
       beforeMount() {
         this.getWordList()

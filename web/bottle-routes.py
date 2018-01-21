@@ -3,10 +3,12 @@ import os
 from bottle import route, run
 from bottle import static_file
 
-os.chdir("C:/Users/sport/PycharmProjects/FirstApplication")
-print(str(os.listdir()))
-print(os.curdir)
-print(os.getcwd())
+# This is to set the root directory of the web server
+os.chdir("C:/DEV/GitHub/GitRepo/CourseAuxMimes")
+
+# print(str(os.listdir()))
+# print(os.curdir)
+# print(os.getcwd())
 
 @route('/')
 def main_html():
