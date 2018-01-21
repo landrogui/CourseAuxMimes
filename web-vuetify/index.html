@@ -19,26 +19,29 @@
       <v-container fluid grid-list-xl>
         <v-layout row wrap>
           <v-flex xs12>
-            <v-toolbar app>
+            <v-tabs grow icons centered>
+            <v-toolbar app color="cyan darken-3" dark>
                 <v-toolbar-side-icon ></v-toolbar-side-icon>
-                <v-toolbar-title v-text="title"></v-toolbar-title>
+                <v-toolbar-title><h1>{{ toolbar_title }}</h1></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-layout>
                   <v-flex xs8>
                     <v-select v-bind:items="language_list" v-model="language_default" item-text="text" item-value="value" single-line></v-select>
                   </v-flex>
-                </v-layout>          
+                </v-layout>     
               </v-toolbar>
-          </v-flex>
-        </v-layout>
-        <v-layout>
-          <v-flex xs12 class="text-xs-center">
-            <v-card>
-              <v-btn-toggle v-model="toggle_exclusive">
-                <v-btn block flat color="light-blue darken-4" v-on:click="setPageWords">{{ label_words_page_btn }}</v-btn>
-                <v-btn block flat color="teal darken-3" v-on:click="setPageGame">{{ label_game_page_btn }}</v-btn>
-              </v-btn-toggle>
-            </v-card>
+              <v-tabs-bar color="cyan" dark>
+                <v-tabs-slider color="brown lighten-1"></v-tabs-slider>
+                <v-tabs-item href="#tab-1" v-on:click="setPageWords">
+                  <v-icon>info</v-icon>
+                  <h3>{{ label_words_page_btn }}</h3>
+                </v-tabs-item>
+                <v-tabs-item href="#tab-2" v-on:click="setPageGame">
+                  <v-icon>star</v-icon>
+                  <h3>{{ label_game_page_btn }}</h3>
+                </v-tabs-item>
+              </v-tabs-bar>
+            </v-tabs>
           </v-flex>
         </v-layout>
         <v-layout>
@@ -136,9 +139,9 @@
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: "La course aux mimes !!!",
-        label_words_page_btn: "--------- Liste de Mots ---------",
-        label_game_page_btn: "---------- Partie en Cours ----------",
+        toolbar_title: "La Course des Mimes !!!",
+        label_words_page_btn: "Liste de Mots",
+        label_game_page_btn: "Partie en Cours",
         whichPageToDisplay: "table_words",
         language_default: 1,
         toggle_exclusive: 0,
