@@ -127,7 +127,6 @@
         fixed: false,
         miniVariant: false,
         right: true,
-        loading: false,
         rightDrawer: false,
         title: "Guillaume's App",
         label_words_page_btn: "--------- Liste de Mots ---------",
@@ -160,7 +159,6 @@
                      console.log("in axios")
                      console.log("response: " + response.data)
                      vm.table_words_items = response.data
-                     vm.loading = false
                   }).catch(function(error) {
                      console.log(error.response.data)
                   });
