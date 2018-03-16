@@ -36,6 +36,11 @@ def send_fonts(filename):
 def send_img(filename):
     return static_file(filename, root='img/')
 
+# Route to find npm installed componentt
+@route('/node_modules/<filename:path>')
+def send_img(filename):
+    return static_file(filename, root='node_modules/')
+
 
 @route('/get-word-list')
 def ajax_hello():
