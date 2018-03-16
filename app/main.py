@@ -1,5 +1,5 @@
 from app.database import *
-from functions import *
+from app.functions import *
 import os
 
 def getListWords(strLanguage):
