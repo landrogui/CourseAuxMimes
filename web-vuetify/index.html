@@ -8,8 +8,8 @@
   <title>Vuetify Jeux Guillaume</title>
 
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
-  <link href="node_modules/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css"></link>
-  <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+  <link href="node_modules/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css" >
+  <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" >
   <link rel="icon" type="image/png" href="img/FLAG-200x200.png" sizes="200x200">
 
 </head>
@@ -55,7 +55,10 @@
         </v-layout>
         <v-layout>
           <v-flex xs12 v-if="whichPageToDisplay === 'table_words'">
-            <v-btn block large round class="primary" ><v-icon>star</v-icon><v-spacer></v-spacer> Créez une Partie
+            <v-btn block large round class="primary" @click.native.stop="createGameDialog">
+              <v-icon>star</v-icon>
+              <v-spacer></v-spacer>
+              Créez une Partie
               <v-spacer></v-spacer>
               <v-icon>star</v-icon>
             </v-btn>
@@ -111,7 +114,7 @@
             <div>
             <v-alert color="warning" icon="priority_high" value="true" v-if="isGameInProgress == false">
               Il n'y pas de partie active. Vous pouvez retourner à la page précédente pour consulter les mots ou créez une partie immédiatement:
-              <v-btn round block class="primary">
+              <v-btn round block class="primary" @click.native.stop="createGameDialog">
                   <v-icon>star</v-icon>
                   <v-spacer></v-spacer>
                   Créez une Partie
@@ -122,45 +125,67 @@
             </div>
             <v-card>
               <template>
-              <v-data-table
-                v-bind:headers="table_game_header" :items="table_game_items"
-                hide-actions
-                class="elevation-1"
-                dark
-                v-if="isGameInProgress == true"
-              >
-              <template slot="items" slot-scope="props">
-                <td class="text-xs-left">{{ props.item.line }}</td>
-                <td class="text-xs-left">{{ props.item.word }}</td>
-                <td class="text-xs-left">{{ props.item.difficulty }}</td>
-                <td class="text-xs-left">{{ props.item.hint }}</td>
+                <v-data-table
+                  v-bind:headers="table_game_header" :items="table_game_items"
+                  hide-actions
+                  class="elevation-1"
+                  dark
+                  v-if="isGameInProgress == true"
+                >
+                <template slot="items" slot-scope="props">
+                  <td class="text-xs-left">{{ props.item.line }}</td>
+                  <td class="text-xs-left">{{ props.item.word }}</td>
+                  <td class="text-xs-left">{{ props.item.difficulty }}</td>
+                  <td class="text-xs-left">{{ props.item.hint }}</td>
+                </template>
+                </v-data-table>
               </template>
-              </v-data-table>
-            </template>
-          </v-card>
+            </v-card>
           </v-flex>
-          <v-dialog v-model="dialog" max-width="250">
-              <v-card>
-									<v-card-title class="headline">Je n'ai pas trouvé de partie!</v-card-title>
-									<v-card-text>En cliquant sur
-                    <v-btn small round class="primary">
-                      <v-icon>star</v-icon>
-                      Créez une Partie
-                      <v-icon>star</v-icon>
-                    </v-btn>
-                    elle deviendra accessible.</v-card-text>
-									<v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn centered color="green darken-1" flat="flat" @click.native="showAlertNoGameInProgress = false"
-                    >OK
-                    </v-btn>
-                    <v-spacer></v-spacer>
-									</v-card-actions>
-								</v-card>
-          </v-dialog>
         </v-layout>
+        <v-layout row justify-center>
+            <v-btn color="primary" dark @click.native.stop="createGameDialog">Open Dialog</v-btn>
+            <v-dialog v-model="create_game_dialog" persistent max-width="350">
+              <v-card>
+                <v-card-title class="headline">Nouvelle Partie !!
+                  <v-icon>mdi-emoticon-cool</v-icon>
+                </v-card-title>
+                <v-card-text>
+                  <v-form v-model="valid" ref="form"> 
+                    <v-text-field disabled label="Langue" v-model="active_language">
+                      </v-text-field>
+                    <v-text-field label="Nom de l'équipe #1" v-model="game_team1_name" :rules="nameRules" :counter="5" required>
+                    </v-text-field>
+                    <v-text-field label="Nom de l'équipe #2" v-model="game_team2_name" :rules="nameRules" :counter="5" required>
+                    </v-text-field>
+                    <v-select
+                      label="Choisir Difficulté"
+                      v-bind:items="game_difficulty"
+                      item-text="name"
+                      item-value="name"
+                      v-model="e4"
+                      v-bind:error-messages="select_difficulty_error"
+                      required
+                    ></v-select>
+                  </v-form>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="pink lighten-3" round outline @click.native="create_game_dialog = false">
+                    <v-icon dark left>remove_circle</v-icon>
+                    Annulez
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn color="green darken-1" round outline @click.native="create_game_dialog = false">
+                    <v-icon dark left>check_circle</v-icon>
+                    Allez!
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-layout>
       </v-container>
-
   </div>
 
   <script src="node_modules/vue/dist/vue.js"></script>
@@ -174,6 +199,8 @@
     var vm = new Vue({
       el: '#app',
       data: {
+        dialog: false,
+        create_game_dialog: false,
         active_language: "Francais",
         active_language_abbr: "FR",
         toolbar_title: "La Course des Mimes !!!",
@@ -181,7 +208,6 @@
         label_game_page_btn: "Partie en Cours",
         whichPageToDisplay: "table_words",
         isGameInProgress: false,
-        dialog: false,
         language_list: [
             { text: 'Français', value: 'Français' },
             { text: 'English', value: 'English' }
@@ -198,9 +224,24 @@
             { text: 'Statut', value: 'word', align: 'left', sortable: false },
             { text: 'Indice', value: 'word', align: 'left', sortable: false }
         ],
-        table_game_items: []
-
-        },
+        table_game_items: [],
+        game_team1_name: '',
+        game_team2_name: '',
+        valid: true,
+        name: '',
+        nameRules: [
+          (v) => !!v || 'Name is required',
+          (v) => v && v.length <= 10 || 'Name must be less than 10 characters'
+        ],
+        e4: [],
+        select_difficulty_error: [],
+        game_difficulty: [
+          { name: 'Facile' },
+          { name: 'Moyen' },
+          { name: 'Difficile' },
+          { name: 'Très Difficile' },
+        ]
+      },
       methods: {
           getWordList: function() {
                axios.get('get-word-list').then(function(response) {
@@ -218,7 +259,7 @@
           setPageGame: function() {
             this.whichPageToDisplay = "table_game"
           },
-          getColorForDifficuty: function (valDifficulty) {
+          getColorForDifficuty: function(valDifficulty) {
             switch(valDifficulty) {
               case 1:
                 return "green lighten-3"
@@ -236,6 +277,9 @@
                 return "red darken-1"
                 break                
             }
+          },
+          createGameDialog: function() {
+            this.create_game_dialog = true
           },
       },
       computed: {
