@@ -1,15 +1,9 @@
-import os
 from app.main import *
 from bottle import route, run
 from bottle import static_file
 
 # This is to set the root directory of the web server
-
 os.chdir("C:/Users/Guillaume/Dev/CourseAuxMimes")
-
-# print(str(os.listdir()))
-# print(os.curdir)
-# print(os.getcwd())
 
 
 @route('/')
