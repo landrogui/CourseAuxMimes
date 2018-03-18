@@ -1,4 +1,4 @@
-import main
+from app.main import *
 from flask import Flask
 
 # EB looks for an 'application' callable by default.
@@ -47,7 +47,7 @@ def send_npm(filename):
 # Routes for the api to get list of words
 @application.route('/get-word-list')
 def ajax_hello():
-    return main.getListWords("Francais")
+    return getListWords("Francais")
 
 
 # run the app.

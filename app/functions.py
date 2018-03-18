@@ -1,4 +1,4 @@
-import json
+
 
 def isNumberEven(iNumber: int):
     result = divmod(iNumber, 2)
@@ -8,6 +8,7 @@ def isNumberEven(iNumber: int):
     else:
         return False
 
+
 def isNumberOdd(iNumber: int):
     result = divmod(iNumber, 2)
 
@@ -15,6 +16,7 @@ def isNumberOdd(iNumber: int):
         return True
     else:
         return False
+
 
 def convertSQLtoListDict(listSQL, listOfKeys):
     #
@@ -34,6 +36,7 @@ def convertSQLtoListDict(listSQL, listOfKeys):
         # print(objJSON)
 
     return objJSON
+
 
 def sortListofDict(list, key):
         #
