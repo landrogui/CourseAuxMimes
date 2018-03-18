@@ -1,3 +1,4 @@
+import main
 from flask import Flask
 
 # EB looks for an 'application' callable by default.
@@ -8,8 +9,8 @@ application.template_folder = ''
 
 
 @application.route('/')
-def hello_world_route():
-    return application.send_static_file('index_test.html')
+def main_route():
+    return application.send_static_file('web-vuetify/index.html')
 
 
 @application.route('/<filename>')
@@ -41,6 +42,12 @@ def send_img(filename):
 @application.route('/node_modules/<path:filename>')
 def send_npm(filename):
     return application.send_static_file('node_modules/' + filename)
+
+
+# Routes for the api to get list of words
+@application.route('/get-word-list')
+def ajax_hello():
+    return main.getListWords("Francais")
 
 
 # run the app.
