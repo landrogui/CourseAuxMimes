@@ -30,6 +30,7 @@ def send_fonts(filename):
 def send_img(filename):
     return static_file(filename, root='img/')
 
+
 # Route to find npm installed component
 @route('/node_modules/<filename:path>')
 def send_npm(filename):
