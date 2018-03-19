@@ -54,6 +54,7 @@
           </v-flex>
         </v-layout>
         <v-layout>
+          <!-- Bouton sur la page principal qui permet de creer une partie -->
           <v-flex xs12 v-if="whichPageToDisplay === 'table_words'">
             <v-btn block large round class="primary" @click.native.stop="createGameDialog">
               <v-icon>star</v-icon>
@@ -65,6 +66,7 @@
           </v-flex>
         </v-layout>
         <v-layout>
+          <!-- Tableau qui contient la liste des mots -->
           <v-flex xs12 v-if="whichPageToDisplay === 'table_words'">
             <v-card dark>
               <v-card-title>
@@ -110,6 +112,9 @@
               </template>
             </v-card>
           </v-flex>
+        </v-layout>
+        <v-layout>
+          <!-- Alerte lorsqu'il n'y a pas de partie de creer -->
           <v-flex xs12 v-if="whichPageToDisplay === 'table_game'">
             <div>
             <v-alert color="warning" icon="priority_high" value="true" v-if="isGameInProgress == false">
@@ -123,14 +128,48 @@
               </v-btn>
             </v-alert>
             </div>
+          </v-flex>
+        </v-layout>
+        <!-- Minuterie depuis le debut de la partie -->
+        <v-layout>
+            <v-flex xs12 v-if="whichPageToDisplay === 'table_game' && isGameInProgress === true">
+                  <h1 align="center">
+                    <v-progress-circular indeterminate color="purple"></v-progress-circular>
+                     {{ timer }} 
+                    <v-progress-circular indeterminate color="amber"></v-progress-circular>
+                  </h1>
+            </v-flex>
+          </v-layout>
+        <v-layout>
+          <!-- Tableau pour l'equipe 1 (gauche) -->
+          <v-flex xs12 v-if="whichPageToDisplay === 'table_game' && isGameInProgress === true">
             <v-card>
               <template>
                 <v-data-table
-                  v-bind:headers="table_game_header" :items="table_game_items"
+                  v-bind:headers="table_game1_header" :items="table_game1_items"
+                  hide-actions
+                  class="elevation-1"
+                  light
+                >
+                <template slot="items" slot-scope="props">
+                  <td class="text-xs-left">{{ props.item.line }}</td>
+                  <td class="text-xs-left">{{ props.item.word }}</td>
+                  <td class="text-xs-left">{{ props.item.difficulty }}</td>
+                  <td class="text-xs-left">{{ props.item.hint }}</td>
+                </template>
+                </v-data-table>
+              </template>
+            </v-card>
+          </v-flex>
+          <!-- Tableau pour l'equipe 2 (droite) -->
+          <v-flex xs12 v-if="whichPageToDisplay === 'table_game' && isGameInProgress === true">
+            <v-card>
+              <template>
+                <v-data-table
+                  v-bind:headers="table_game2_header" :items="table_game2_items"
                   hide-actions
                   class="elevation-1"
                   dark
-                  v-if="isGameInProgress == true"
                 >
                 <template slot="items" slot-scope="props">
                   <td class="text-xs-left">{{ props.item.line }}</td>
@@ -143,8 +182,8 @@
             </v-card>
           </v-flex>
         </v-layout>
+        <!-- Fenetre pour la creation d'une partie -->
         <v-layout row justify-center>
-            <v-btn color="primary" dark @click.native.stop="createGameDialog">Open Dialog</v-btn>
             <v-dialog v-model="create_game_dialog" persistent max-width="350">
               <v-card>
                 <v-card-title class="headline">Nouvelle Partie !!
@@ -176,7 +215,7 @@
                     Annulez
                   </v-btn>
                   <v-spacer></v-spacer>
-                  <v-btn color="green darken-1" round outline @click.native="create_game_dialog = false">
+                  <v-btn color="green darken-1" round outline @click.native="createGameAction">
                     <v-icon dark left>check_circle</v-icon>
                     Allez!
                   </v-btn>
@@ -190,7 +229,7 @@
 
   <script src="node_modules/vue/dist/vue.js"></script>
   <script src="node_modules/vuetify/dist/vuetify.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="node_modules/axios/dist/axios.min.js"></script>
 
   <script>
     Vue.component('page', {
@@ -219,12 +258,19 @@
         ],
         table_words_items: [],
         table_words_search: '',
-        table_game_header: [
+        table_game1_header: [
             { text: 'Mot', value: 'word', align: 'left', sortable: false },
             { text: 'Statut', value: 'word', align: 'left', sortable: false },
             { text: 'Indice', value: 'word', align: 'left', sortable: false }
         ],
-        table_game_items: [],
+        table_game1_items: [],
+        table_game2_header: [
+            { text: 'Mot', value: 'word', align: 'left', sortable: false },
+            { text: 'Statut', value: 'word', align: 'left', sortable: false },
+            { text: 'Indice', value: 'word', align: 'left', sortable: false }
+        ],
+        table_game2_items: [],
+        // Popup Dialog
         game_team1_name: '',
         game_team2_name: '',
         valid: true,
@@ -240,7 +286,8 @@
           { name: 'Moyen' },
           { name: 'Difficile' },
           { name: 'Très Difficile' },
-        ]
+        ],
+        timer: "00:00",
       },
       methods: {
           getWordList: function() {
@@ -254,10 +301,10 @@
 
           },
           setPageWords: function() {
-            this.whichPageToDisplay = "table_words"
+            this.whichPageToDisplay = "table_words";
           },
           setPageGame: function() {
-            this.whichPageToDisplay = "table_game"
+            this.whichPageToDisplay = "table_game";
           },
           getColorForDifficuty: function(valDifficulty) {
             switch(valDifficulty) {
@@ -276,10 +323,31 @@
               case 5:
                 return "red darken-1"
                 break                
-            }
+            };
           },
           createGameDialog: function() {
-            this.create_game_dialog = true
+            this.create_game_dialog = true;
+          },
+          createGameAction: function() {
+            this.create_game_dialog = false;
+            this.isGameInProgress = true;
+          },
+          startTime: function(){
+
+          },
+          startClock: function() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = this.checkTimeFormat(m);
+            s = this.checkTimeFormat(s);
+            this.timer = h + ":" + m + ":" + s;
+            var t = setTimeout(this.startClock, 500);
+          },
+          checkTimeFormat: function(i) {
+            if (i < 10) {i = "0" + i}; // add zero in front of numbers < 10
+            return i
           },
       },
       computed: {
@@ -287,7 +355,8 @@
       },
       beforeMount() {
         this.getWordList()
-      }
+        this.startClock()
+      },
 
 
     }) // End Vue

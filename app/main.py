@@ -1,6 +1,8 @@
 from app.database import *
 from app.functions import *
+import json
 import os
+
 
 def getListWords(strLanguage):
     AppDatabase = SQLiteDatabase()

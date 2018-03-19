@@ -1,6 +1,7 @@
 import sqlite3
 import os
-from functions import *
+from app.functions import *
+
 
 class SQLiteDatabase:
 
